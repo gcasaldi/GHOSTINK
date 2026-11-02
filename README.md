@@ -32,3 +32,13 @@ Open **https://gcasaldi.github.io/GHOSTINK/** to use the public interface.
 **Important limits:** The browser engine checks selectable text for simple instruction-like patterns, tiny font sizes and off-page positions. It does not inspect font colors, detect white-on-white text, run OCR or detect image-only attacks. Patterns spanning multiple PDF text items can be missed. No findings does not mean a document is safe. For the original PyMuPDF heuristics, use the Streamlit app locally.
 
 The dashboard source is in `docs/index.html` and can be hosted as a static GitHub Pages site.
+
+## Remediation & verification
+
+Every detected text indicator now comes with contextual, **human-reviewed** remediation guidance explaining what to investigate, suggested corrective actions, and how to verify the fix. Both the GitHub Pages browser scanner and the local Streamlit engine include remediation details in their downloadable JSON reports. Advice is not automatic sanitization or a security verdict.
+
+The **synthetic.pdf** label in the original walkthrough was a fictional example stored as JavaScript findings, **not a scanned file**. The dashboard now provides **Download test PDF** to generate a real, harmless one-page PDF test fixture locally. Download it, select it under **Analyze your own PDF**, and run **Analyze PDF** to test the live engine. The fixture includes an instruction-like phrase and tiny text, so these two heuristic types should be detectable. Off-page text may be omitted by some PDF text extractors; outputs can differ by engine. The fictional walkthrough remains clearly labeled as synthetic.
+
+Relevant guidance: [OWASP LLM01:2025 Prompt Injection](https://genai.owasp.org/llmrisk/llm01-prompt-injection/) and the [OWASP Prompt Injection Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/LLM_Prompt_Injection_Prevention_Cheat_Sheet.html). A string-matching scanner cannot prevent indirect prompt injection; effective protections include trust boundaries, restricted tool privileges, authorization checks, and human review.
+
+The GitHub Pages assets are mirrored in `/` and `/docs` to support either GitHub Pages branch folder configuration.
